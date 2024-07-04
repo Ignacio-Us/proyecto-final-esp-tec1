@@ -8,5 +8,5 @@ public interface PuntajeService {
 
     public List<PuntajeDTO> getAllPuntajes() throws Exception;
 
-    public PuntajeDTO createPuntaje() throws Exception;
+    public PuntajeDTO createPuntaje(PuntajeDTO puntajeDTO) throws Exception;
 }
