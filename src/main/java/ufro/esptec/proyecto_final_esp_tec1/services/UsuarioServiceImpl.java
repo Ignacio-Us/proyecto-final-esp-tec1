@@ -15,7 +15,7 @@ import ufro.esptec.proyecto_final_esp_tec1.repositories.UsuarioRepository;
 
 @Service
 @AllArgsConstructor
-public class UsuarioServiceImpl implements UsuarioService{
+public class UsuarioServiceImpl implements UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final UsuarioMapper usuarioMapper;
@@ -52,5 +52,28 @@ public class UsuarioServiceImpl implements UsuarioService{
             throw new Exception("Error creating user: " + e.getMessage());
         }
     }
-    
+
+    @Override
+    public UsuarioDTO updateUsuario(UsuarioDTO usuarioDTO) throws Exception {
+        try {
+            Optional<Usuario> optionalUsuario = usuarioRepository.findById(usuarioDTO.getId());
+            if (optionalUsuario.isPresent()) {
+                
+                Usuario usuarioToUpdate = optionalUsuario.get();
+
+                usuarioToUpdate.setNombre(usuarioDTO.getNombre());
+                usuarioToUpdate.setEmail(usuarioDTO.getEmail());
+                usuarioToUpdate.setContrasena(usuarioDTO.getContrasena());
+
+                usuarioToUpdate = usuarioRepository.save(usuarioToUpdate);
+
+                return usuarioMapper.toUsuarioDTO(usuarioToUpdate);
+            } else {
+                throw new Exception("User not found with id: " + usuarioDTO.getId());
+            }
+        } catch (Exception e) {
+            throw new Exception("Error updating user: " + e.getMessage());
+        }
+    }
+
 }

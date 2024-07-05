@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import ufro.esptec.proyecto_final_esp_tec1.dto.UsuarioDTO;
 import ufro.esptec.proyecto_final_esp_tec1.services.UsuarioService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -50,4 +51,13 @@ public class UsuarioController {
         }
     }
 
+    @PutMapping("/{usuarioID}")
+    public ResponseEntity<UsuarioDTO> updateUsuario(@PathVariable("usuarioID") Integer id, @RequestBody UsuarioDTO usuarioDTO) {
+        try {
+            usuarioDTO.setId(id);
+            return ResponseEntity.ok(usuarioService.updateUsuario(usuarioDTO));
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

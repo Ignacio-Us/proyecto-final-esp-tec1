@@ -12,4 +12,5 @@ public interface UsuarioService {
 
     public UsuarioDTO createUsuario(UsuarioDTO usuarioDTO) throws Exception;
 
+    public UsuarioDTO updateUsuario(UsuarioDTO usuarioDTO) throws Exception;
 }
